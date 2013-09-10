@@ -374,5 +374,5 @@ function initScript()
 
 function endScript()
 {
-  payload += 'top.window.location.href="http://127.0.0.1/bamboo/bamboo.htm"\n';
+  payload += 'top.window.location.href="http://localhost/bamboo/bamboo.htm"\n';
 }
