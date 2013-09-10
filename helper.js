@@ -2,6 +2,11 @@ treeWalker = {}
 
 objPointer = null;
 
+function getRandomObject(seed)
+{
+  return Math.round(document.getElementsByTagName('*').length*seed/100);
+}
+
 function createTreeWalker(filter)
 {
   treeWalker = document.createTreeWalker
