@@ -1,4 +1,4 @@
-/*targetElements = ['article', 'asise', 'b', 'bdi', 'bdo', 'blockquote', 'br', 'button',
+targetElements = ['article', 'asise', 'b', 'bdi', 'bdo', 'blockquote', 'br', 'button',
                   'canvas', 'caption', 'cite', 'col', 'code', 'command', 'datalist',
                   'dd', 'del', 'details', 'dfn', 'dl', 'dt', 'em', 'style', 'fieldset',
                   'figcaption', 'script', 'embed', 'figure', 'footer', 'header', 'hgroup',
@@ -10,9 +10,7 @@
                   'table', 'area', 'td', 'tr', 'link', 'base', 'font', 'head', 'img', 'map',
                   'meta', 'ol', 'li', 'tbody', 'title', 'h1', 'blink', 'area', 'col', 'span',
                   'frameset', 'frame', 'ul', 'option', 'noframes', 'tfoot', 'xmp', 'isindex',
-                  'center', 'hr', 'label', 'optgroup', 'audio', 'video', 'svg'];*/
-                  
-targetElements = ['canvas', 'svg', 'audio', 'video', 'blockquote', 'track'];
+                  'center', 'hr', 'label', 'optgroup', 'audio', 'video', 'svg'];
 
 targetStrings = ['"!PALM"', '0.2' , '"normal"', '"inherit"', '"ellipsis"', '"static"', '"url(#defaul#tVML)"', '"url(-37546)"',
                  '"url(#defaul#tVML)"', '"clip"', '"auto"', '"georgian"', '6/247', '"break-word"', '"no-open-quote"',

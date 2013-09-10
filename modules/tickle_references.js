@@ -369,7 +369,7 @@ function fuzzUnknownReferences(count)
 
 function initScript()
 {
-  payload = '//heapSpray();\ntry{createTreeWalker(NodeFilter.SHOW_ALL)}catch(e){alert(e)}\n';
+  payload = 'heapSpray();\ntry{createTreeWalker(NodeFilter.SHOW_ALL)}catch(e){alert(e)}\n';
 }
 
 function endScript()
