@@ -1,3 +1,9 @@
+/* * * * * * *
+ * bamboo.js *
+ * * * * * * *
+ * v0.9b * * *
+ * * * * * * */
+
 try {init} catch(e)
 {
   alert('Missing configuration file!');
@@ -34,9 +40,9 @@ function runFuzzer()
 
   initScript();
 
-  fuzzOwnReferences(15);
+  fuzzOwnReferences(25);
 
-  fuzzUnknownReferences(15);
+  fuzzUnknownReferences(25);
 
   endScript();
 

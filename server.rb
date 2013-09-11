@@ -1,5 +1,11 @@
 #!/usr/bin/ruby
 
+# * * * * * * *
+# * bamboo.js *
+# * * * * * * *
+# * v0.9b * * *
+# * * * * * * *
+
 require 'websocket-eventmachine-server'
 require 'base64'
 

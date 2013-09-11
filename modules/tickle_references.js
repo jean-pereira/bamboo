@@ -1,11 +1,31 @@
+/* * * * * * *
+ * bamboo.js *
+ * * * * * * *
+ * v0.9b * * *
+ * * * * * * */
+
 function r(int)
 {
   return Math.floor(Math.random()*int);
 }
 
+function rHex()
+{
+  offset = ['a', 'b', 'c', 'd', 'e', 'f', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  string = '';
+
+  for(i=0; i<(r(100)+1); i++)
+  {
+    string += offset[r(offset.length)];
+  }
+
+  return string;
+}
+
 function tickleDOM()
 {
-  switch(r(3))
+  switch(r(4))
   {
     case 0:
       payload += 'try{createTreeWalker(NodeFilter.' + targetFilter[r(targetFilter.length)] + ')}catch(e){}\n';
@@ -23,7 +43,11 @@ function tickleDOM()
     break;
 
     case 2:
-      payload += 'try{movePointer(' + r(3) + ',' + r(4) + ',' + r(2) + ',' + r(97) + ',' + r(97) + ',' + r(97) + ',' + r(97) + ')}catch(e){}\n';
+      payload += 'try{movePointer(' + r(3) + ',' + r(4) + ',' + r(2) + ',' + r(97) + ',' + r(97) + ',' + r(97) + ',' + r(97) + ',' + r(2) + ')}catch(e){}\n';
+    break;
+
+    case 3:
+      payload += 'try{createElementReference(' + r(97) + ', "' + rHex() + '")}catch(e){}\n';
     break;
   }
 }
@@ -42,7 +66,7 @@ function fuzzOwnReferences(count)
 
   if(r(2)>0)
   {
-    payload += 'document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].appendChild(e_1);\n';
+    payload += 'getRandomObject(' + r(97) + ').appendChild(e_1);\n';
   }
   else
   {
@@ -51,7 +75,7 @@ function fuzzOwnReferences(count)
 
   if(r(2)>0)
   {
-    payload += 'document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].appendChild(e_2);\n';
+    payload += 'getRandomObject(' + r(97) + ').appendChild(e_2);\n';
   }
   else
   {
@@ -97,7 +121,7 @@ function fuzzOwnReferences(count)
             if(!sp.match(/^\d/))
             {
               secondObjTargets.push('e_2.' + p + '.' + sp);
-              secondObjTargets.push('document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].' + p + '.' + sp);
+              secondObjTargets.push('getRandomObject(' + r(97) + ').' + p + '.' + sp);
             }
           }
         }
@@ -118,7 +142,7 @@ function fuzzOwnReferences(count)
 
       if(r(12)<3)
       {
-        payload += ['document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')]', 'treeWalker.currentNode', 'treeWalker.previousNode()', 'treeWalker.previousSibling()'][r(4)];
+        payload += ['getRandomObject(' + r(97) + ')', 'treeWalker.currentNode', 'treeWalker.previousNode()', 'treeWalker.previousSibling()'][r(4)];
       }
       else
       {
@@ -236,7 +260,7 @@ function fuzzUnknownReferences(count)
           {
             if(!sp.match(/^\d/))
             {
-              firstObjTargets.push('document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].' + p + '.' + sp);
+              firstObjTargets.push('getRandomObject(' + r(97) + ').' + p + '.' + sp);
             }
           }
         }
@@ -255,7 +279,7 @@ function fuzzUnknownReferences(count)
           {
             if(!sp.match(/^\d/))
             {
-              secondObjTargets.push('document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].' + p + '.' + sp);
+              secondObjTargets.push('getRandomObject(' + r(97) + ').' + p + '.' + sp);
             }
           }
         }
@@ -334,7 +358,7 @@ function fuzzUnknownReferences(count)
         {
           if(!removed)
           {
-            payload += 'document.body.removeChild(document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')])}catch(e){}';
+            payload += 'document.body.removeChild(getRandomObject(' + r(97) + '))}catch(e){}';
             removed = 1;
             max_remove--;
           }
@@ -346,7 +370,7 @@ function fuzzUnknownReferences(count)
             }
             else
             {
-              payload += 'var x = document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].cloneNode(true);\n'
+              payload += 'var x = getRandomObject(' + r(97) + ').cloneNode(true);\n'
             }
             if(r(2)>0)
             {
@@ -354,10 +378,14 @@ function fuzzUnknownReferences(count)
             }
             else
             {
-              payload += 'document.getElementsByTagName("*")[getRandomObject(' + r(97) + ')].appendChild(x)}catch(e){}';
+              payload += 'getRandomObject(' + r(97) + ').appendChild(x)}catch(e){}';
             }
             removed = 0;
           }
+        }
+        else
+        {
+          payload += nextAction[0] + '=' + nextAction[(r(2)+1)] + '(' + nextAction[(r(2)+1)] + ')}catch(e){}';
         }
       break;
     }

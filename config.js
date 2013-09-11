@@ -1,3 +1,9 @@
+/* * * * * * *
+ * bamboo.js *
+ * * * * * * *
+ * v0.9b * * *
+ * * * * * * */
+
 targetElements = ['article', 'asise', 'b', 'bdi', 'bdo', 'blockquote', 'br', 'button',
                   'canvas', 'caption', 'cite', 'col', 'code', 'command', 'datalist',
                   'dd', 'del', 'details', 'dfn', 'dl', 'dt', 'em', 'style', 'fieldset',

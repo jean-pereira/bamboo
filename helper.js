@@ -1,10 +1,23 @@
+/* * * * * * *
+ * bamboo.js *
+ * * * * * * *
+ * v0.9b * * *
+ * * * * * * */
+
 treeWalker = {}
+
+idCollector = [];
 
 objPointer = null;
 
-function getRandomObject(seed)
+function getRandomObjectNum(seed)
 {
   return Math.round(document.getElementsByTagName('*').length*seed/100);
+}
+
+function getRandomObject(seed)
+{
+  return document.getElementsByTagName('*')[getRandomObjectNum(seed)];
 }
 
 function createTreeWalker(filter)
@@ -22,9 +35,33 @@ function createTreeWalker(filter)
   )
 }
 
-function movePointer(action, node, clone, nSeed, pSeed, rSeed, sSeed)
+function createElementReference(seed, id)
 {
-  var shuffleObject = Math.round(document.getElementsByTagName('*').length*nSeed/100);
+  var targetElement = getRandomObject(seed);
+
+  idCollector.push(id);
+
+  targetElement.id = id;
+}
+
+function getCollectedElement(seed)
+{
+  var targetElement = getElementById(idCollector[Math.round(idCollector.length*seed/100)]);
+
+  return targetElement;
+}
+
+function movePointer(action, node, clone, nSeed, pSeed, rSeed, sSeed, iMode)
+{
+
+  if(iMode && idCollector.length)
+  {
+    var shuffleObject = getCollectedElement(nSeed);
+  }
+  else
+  {
+    var shuffleObject = getRandomObject(nSeed);
+  }
 
   if(objPointer)
   {
@@ -55,7 +92,7 @@ function movePointer(action, node, clone, nSeed, pSeed, rSeed, sSeed)
       case 2:
         try
         {
-          objPointer[Math.round(objPointer.length*rSeed/100)] = shuffleObject[Math.round(shuffleObject.length*rSeed/100)];
+          objPointer[getRandomObjectNum(rSeed)] = shuffleObject[getRandomObjectNum(rSeed)];
         }
         catch(e) {}
       break;
@@ -67,7 +104,7 @@ function movePointer(action, node, clone, nSeed, pSeed, rSeed, sSeed)
     {
       var randomNode = null;
 
-      var phantomNode = Math.round(document.getElementsByTagName('*').length*pSeed/100);
+      var phantomNode = getRandomObject(pSeed);
 
       switch(node)
       {
